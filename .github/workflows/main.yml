@@ -1,0 +1,19 @@
+name: We make Python Guide
+on: [pull_request, push]
+jobs:
+  main:
+    name: Quality check
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@master
+        with:
+          python-version: 3.8
+      - name: Wemake
+        uses: wemake-services/wemake-python-styleguide@latest
+        continue-on-error: true
+        with:
+          reporter: 'github-pr-review'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
